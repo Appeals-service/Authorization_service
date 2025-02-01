@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  otus_fa:
+    container_name: otus_fa
+    build: .
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env
+    depends_on:
+      - database
+
+  database:
+    container_name: otus_postgres
+    image: postgres:14.4
+    ports:
+      - 5432:5432
+    volumes:
+      - otus_postgres_data:/var/lib/otus_postgresql/data/
+    env_file:
+      - ./.env
+    environment:
+      PGDATA: /var/lib/otus_postgresql/data/
+
+
+volumes:
+  otus_postgres_data:

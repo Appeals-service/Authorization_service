@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "authorization-service"
+version = "0.1.0"
+description = ""
+authors = ["Евгений <evgeniy.moiseev.progr@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "^0.115.8"
+sqlalchemy = "^2.0.37"
+pydantic = "^2.10.6"
+pydantic-settings = "^2.7.1"
+alembic = "^1.14.1"
+user-agents = "^2.2.0"
+pyjwt = "^2.10.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
