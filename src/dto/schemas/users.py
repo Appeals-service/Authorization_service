@@ -1,5 +1,6 @@
 """User schemas."""
 
+from fastapi import Query
 from pydantic import BaseModel, Field, EmailStr, field_validator
 
 from utils.enums import UserRole

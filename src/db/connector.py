@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session as SessionType
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import NullPool
 
-from common.settings import settings
+from src.common.settings import settings
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(format=settings.LOGGING_FORMAT)
