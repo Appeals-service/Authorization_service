@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Request, Response, status
 
 from db.tables import User
-from dto.schemas.users import UserCreate, UserAuth, UserBase, RefreshToken
+from dto.schemas.users import UserCreate, UserAuth, UserBase, RefreshToken, Tokens
 from services.user import UserService
 from utils.role_checker import allowed_for_all
 
@@ -10,13 +10,13 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post(
     "/registration",
-    response_model=RefreshToken,
+    response_model=Tokens,
     summary="User registration",
-    response_description="Tokens in cookie and in body",
+    response_description="Tokens",
     status_code=status.HTTP_201_CREATED,
 )
-async def register(request: Request, response: Response, user: UserCreate = Depends()):
-    return await UserService.register(user, request.headers["user-agent"], response)
+async def register(user_data: UserCreate):
+    return await UserService.register(user_data)
 
 
 @router.post(
