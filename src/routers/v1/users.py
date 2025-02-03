@@ -21,12 +21,12 @@ async def register(user_data: UserCreate):
 
 @router.post(
     "/login",
-    response_model=RefreshToken,
+    response_model=Tokens,
     summary="User login",
-    response_description="Tokens in cookie and in body",
+    response_description="Tokens",
 )
-async def login(request: Request, response: Response, user: UserAuth = Depends()):
-    return await UserService.login(user, request.headers["user-agent"], response)
+async def login(user_data: UserAuth):
+    return await UserService.login(user_data)
 
 
 @router.post(

@@ -27,7 +27,7 @@ class UserService:
         return dict(access_token=access_token, refresh_token=refresh_token)
 
     @classmethod
-    async def login(cls, user_data: UserAuth, user_agent: str, response: Response) -> dict:
+    async def login(cls, user_data: UserAuth) -> dict:
 
         is_email = True
         try:
@@ -45,10 +45,9 @@ class UserService:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User unauthorized")
 
         access_token, refresh_token = await cls._get_tokens(
-            user_data_from_db.id, user_data_from_db.role, str(parse(user_agent))
+            user_data_from_db.id, user_data_from_db.role, str(parse(user_data.user_agent))
         )
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
-        return dict(refresh_token=refresh_token)
+        return dict(access_token=access_token, refresh_token=refresh_token)
 
     @staticmethod
     async def logout(user: User, user_agent: str, response: Response) -> None:
