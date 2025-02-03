@@ -50,9 +50,7 @@ class UserService:
         return dict(access_token=access_token, refresh_token=refresh_token)
 
     @staticmethod
-    async def logout(user: User, user_agent: str, response: Response) -> None:
-        response.delete_cookie(key="access_token", httponly=True)
-
+    async def logout(user: User, user_agent: str) -> None:
         async with AsyncSession() as session:
             await UsersRepository.delete_refresh_token_by_user_data(session, user.id, str(parse(user_agent)))
             try:

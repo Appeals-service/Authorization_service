@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Request, Response, status
+from fastapi import APIRouter, Depends, Request, Response, status, Body
 
 from db.tables import User
 from dto.schemas.users import UserCreate, UserAuth, UserBase, RefreshToken, Tokens
@@ -34,8 +34,8 @@ async def login(user_data: UserAuth):
     summary="User logout",
     status_code=status.HTTP_204_NO_CONTENT,
 )
-async def logout(request: Request, response: Response, user: User = Depends(allowed_for_all)):
-    await UserService.logout(user, request.headers["user-agent"], response)
+async def logout(user_agent: str = Body(), user: User = Depends(allowed_for_all)):
+    await UserService.logout(user, user_agent)
 
 
 @router.post(
