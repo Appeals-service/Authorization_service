@@ -26,10 +26,6 @@ class UserCreate(UserBase):
     user_agent: str
 
 
-class RefreshToken(BaseModel):
-    refresh_token: str
-
-
 class Tokens(BaseModel):
     access_token: str
     refresh_token: str

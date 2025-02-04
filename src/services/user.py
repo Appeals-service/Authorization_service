@@ -10,7 +10,7 @@ from user_agents import parse
 from common.settings import settings
 from db.connector import AsyncSession
 from db.tables import User
-from dto.schemas.users import UserCreate, UserAuth, RefreshToken
+from dto.schemas.users import UserCreate, UserAuth
 from repositories.users import UsersRepository
 from utils.auth import get_hashed_pwd, create_tokens, verify_pwd, check_token_type, get_refresh_token_payload
 from utils.enums import UserRole, TokenType
@@ -59,11 +59,11 @@ class UserService:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"{e.args[0].split('DETAIL:')[1]}")
 
     @classmethod
-    async def refresh(cls, refresh_token: RefreshToken, user_agent, response: Response) -> dict:
+    async def refresh(cls, refresh_token: str, user_agent) -> dict:
         user_agent = str(parse(user_agent))
-        check_token_type(refresh_token.refresh_token, TokenType.refresh)
+        check_token_type(refresh_token, TokenType.refresh)
 
-        payload = await get_refresh_token_payload(refresh_token.refresh_token)
+        payload = await get_refresh_token_payload(refresh_token)
 
         async with AsyncSession() as session:
             if (
@@ -79,8 +79,7 @@ class UserService:
 
         access_token, refresh_token = await cls._get_tokens(payload.get("sub"), payload.get("role"), user_agent)
 
-        response.set_cookie(key="access_token", value=access_token, httponly=True)
-        return dict(refresh_token=refresh_token)
+        return dict(access_token=access_token, refresh_token=refresh_token)
 
     @staticmethod
     async def _add_user(user_data: UserCreate) -> uuid4:

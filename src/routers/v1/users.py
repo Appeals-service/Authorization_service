@@ -1,7 +1,7 @@
-from fastapi import APIRouter, Depends, Request, Response, status, Body
+from fastapi import APIRouter, Depends, status, Body
 
 from db.tables import User
-from dto.schemas.users import UserCreate, UserAuth, UserBase, RefreshToken, Tokens
+from dto.schemas.users import UserCreate, UserAuth, UserBase, Tokens
 from services.user import UserService
 from utils.role_checker import allowed_for_all
 
@@ -40,12 +40,12 @@ async def logout(user_agent: str = Body(), user: User = Depends(allowed_for_all)
 
 @router.post(
     "/refresh",
-    response_model=RefreshToken,
+    response_model=Tokens,
     summary="Refresh tokens",
-    response_description="Tokens in cookie and in body",
+    response_description="Tokens",
 )
-async def refresh_tokens(request: Request, response: Response, refresh_token: RefreshToken = Depends()):
-    return await UserService.refresh(refresh_token, request.headers["user-agent"], response)
+async def refresh_tokens(refresh_token: str = Body(), user_agent: str = Body()):
+    return await UserService.refresh(refresh_token, user_agent)
 
 
 @router.get(
