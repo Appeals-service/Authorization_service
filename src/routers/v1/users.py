@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, status, Body
 from db.tables import User
 from dto.schemas.users import UserCreate, UserAuth, UserBase, Tokens
 from services.user import UserService
-from utils.role_checker import allowed_for_all
+from utils.role_checker import allowed_for_all, allowed_for_admin
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
@@ -56,3 +56,12 @@ async def refresh_tokens(refresh_token: str = Body(), user_agent: str = Body()):
 )
 async def get_user_data(user: User = Depends(allowed_for_all)):
     return user
+
+
+@router.delete(
+    "/delete",
+    status_code=status.HTTP_204_NO_CONTENT,
+    summary="Delete user",
+)
+async def delete(user_id: str = Body(), user: User = Depends(allowed_for_admin)):
+    return await UserService.delete(user_id)

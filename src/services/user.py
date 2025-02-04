@@ -81,6 +81,12 @@ class UserService:
 
         return dict(access_token=access_token, refresh_token=refresh_token)
 
+    @classmethod
+    async def delete(cls, user_id: str):
+        async with AsyncSession() as session:
+            await UsersRepository.delete_user_by_user_id(session, user_id)
+            await session.commit()
+
     @staticmethod
     async def _add_user(user_data: UserCreate) -> uuid4:
         user_data.pwd = get_hashed_pwd(user_data.pwd)

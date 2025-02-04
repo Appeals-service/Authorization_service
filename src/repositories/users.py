@@ -53,3 +53,8 @@ class UsersRepository:
     async def delete_tokens_by_user_id(session: AsyncSession, user_id: str) -> None:
         query = delete(Token).where(Token.subject == user_id)
         await session.execute(query)
+
+    @classmethod
+    async def delete_user_by_user_id(cls, session: AsyncSession, user_id: str) -> None:
+        query = delete(User).where(User.id == user_id)
+        await session.execute(query)
