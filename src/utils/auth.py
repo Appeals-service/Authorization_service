@@ -8,7 +8,7 @@ from fastapi import Request, HTTPException, status, Depends
 from common.settings import settings
 from db.connector import AsyncSession
 from db.tables import User
-from repositories.users import UsersRepository
+from repositories.user import UserRepository
 from utils.enums import TokenType
 
 pwd_context = CryptContext(schemes=["bcrypt"])
@@ -65,7 +65,7 @@ async def get_current_user(token: str = Depends(get_token)) -> User:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
 
     async with AsyncSession() as session:
-        user = await UsersRepository.get_user(session, user_id)
+        user = await UserRepository.get_user(session, user_id)
 
     if not user or payload.get("role") != user.role:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token data")
@@ -88,7 +88,7 @@ async def get_refresh_token_payload(token: str) -> dict:
             token, key=settings.SECRET_KEY, algorithms=[settings.ALGORITHM], options={"verify_exp": False}
         )
         async with AsyncSession() as session:
-            await UsersRepository.delete_refresh_token_by_jti(session, payload.get("jti"))
+            await UserRepository.delete_refresh_token_by_jti(session, payload.get("jti"))
             await session.commit()
 
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=str(e))

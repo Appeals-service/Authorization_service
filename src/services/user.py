@@ -11,7 +11,7 @@ from common.settings import settings
 from db.connector import AsyncSession
 from db.tables import User
 from dto.schemas.users import UserCreate, UserAuth
-from repositories.users import UsersRepository
+from repositories.user import UserRepository
 from utils.auth import get_hashed_pwd, create_tokens, verify_pwd, check_token_type, get_refresh_token_payload
 from utils.enums import UserRole, TokenType
 
@@ -37,7 +37,7 @@ class UserService:
             is_email = False
 
         async with AsyncSession() as session:
-            user_data_from_db = await UsersRepository.get_user_data(
+            user_data_from_db = await UserRepository.get_user_data(
                 session, user_data.login_or_email, "email" if is_email else "login"
             )
 
@@ -52,7 +52,7 @@ class UserService:
     @staticmethod
     async def logout(user: User, user_agent: str) -> None:
         async with AsyncSession() as session:
-            await UsersRepository.delete_refresh_token_by_user_data(session, user.id, str(parse(user_agent)))
+            await UserRepository.delete_refresh_token_by_user_data(session, user.id, str(parse(user_agent)))
             try:
                 await session.commit()
             except IntegrityError as e:
@@ -67,14 +67,14 @@ class UserService:
 
         async with AsyncSession() as session:
             if (
-                    not (token_data_from_db := await UsersRepository.get_token_data_by_jti(session, payload.get("jti")))
+                    not (token_data_from_db := await UserRepository.get_token_data_by_jti(session, payload.get("jti")))
                     or user_agent != token_data_from_db.user_agent
             ):
-                await UsersRepository.delete_tokens_by_user_id(session, payload.get("sub"))
+                await UserRepository.delete_tokens_by_user_id(session, payload.get("sub"))
                 await session.commit()
                 raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Invalid token")
 
-            await UsersRepository.delete_refresh_token_by_jti(session, payload.get("jti"))
+            await UserRepository.delete_refresh_token_by_jti(session, payload.get("jti"))
             await session.commit()
 
         access_token, refresh_token = await cls._get_tokens(payload.get("sub"), payload.get("role"), user_agent)
@@ -84,7 +84,7 @@ class UserService:
     @classmethod
     async def delete(cls, user_id: str):
         async with AsyncSession() as session:
-            await UsersRepository.delete_user_by_user_id(session, user_id)
+            await UserRepository.delete_user_by_user_id(session, user_id)
             await session.commit()
 
     @staticmethod
@@ -92,7 +92,7 @@ class UserService:
         user_data.pwd = get_hashed_pwd(user_data.pwd)
 
         async with AsyncSession() as session:
-            user_id = await UsersRepository.insert_user_data(
+            user_id = await UserRepository.insert_user_data(
                 session, user_data.model_dump(by_alias=True, exclude={"user_agent"})
             )
             try:
@@ -111,7 +111,7 @@ class UserService:
         )
 
         async with AsyncSession() as session:
-            await UsersRepository.insert_refresh_token_data(
+            await UserRepository.insert_refresh_token_data(
                 session, {"jti": refresh_jti, "subject": user_id, "user_agent": user_agent}
             )
             try:

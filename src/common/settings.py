@@ -23,8 +23,8 @@ class Settings(BaseSettings):
 
     ECHO: bool = False
 
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1
-    REFRESH_TOKEN_EXPIRE_MINUTES: int = 1
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 120
+    REFRESH_TOKEN_EXPIRE_MINUTES: int = 1440
 
     SECRET_KEY: str = "feisom_ob_teibl_rt54uyjhn67rtgfvbrtr_nyuumn"
     ALGORITHM: str = "HS256"

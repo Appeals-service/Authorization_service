@@ -7,7 +7,7 @@ from db.connector import AsyncSession
 from db.tables import User, Token
 
 
-class UsersRepository:
+class UserRepository:
 
     @staticmethod
     async def insert_user_data(session: AsyncSession, user_data: dict) -> uuid4:
