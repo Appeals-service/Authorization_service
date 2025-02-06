@@ -5,6 +5,7 @@ from sqlalchemy.engine.row import Row
 
 from db.connector import AsyncSession
 from db.tables import User, Token
+from utils.enums import UserRole
 
 
 class UserRepository:
@@ -32,6 +33,14 @@ class UserRepository:
         query = select(User).where(User.id == user_id)
         result = await session.execute(query)
         return result.scalar()
+
+    @staticmethod
+    async def select_users_by_role(session: AsyncSession, role: UserRole | None = None) -> list[User]:
+        query = select(User)
+        if role:
+            query = query.where(User.role == role)
+        result = await session.execute(query)
+        return result.scalars().all()
 
     @staticmethod
     async def delete_refresh_token_by_user_data(session: AsyncSession, user_id: str, user_agent: str) -> None:

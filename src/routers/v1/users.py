@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, status, Body
 
 from db.tables import User
-from dto.schemas.users import UserCreate, UserAuth, UserBase, Tokens
+from dto.schemas.users import UserCreate, UserAuth, UserBase, Tokens, UserListResponse
 from services.user import UserService
+from utils.enums import UserRole
 from utils.role_checker import allowed_for_all, allowed_for_admin
 
 router = APIRouter(prefix="/users", tags=["Users"])
@@ -56,6 +57,16 @@ async def refresh_tokens(refresh_token: str = Body(), user_agent: str = Body()):
 )
 async def get_user_data(user: User = Depends(allowed_for_all)):
     return user
+
+
+@router.get(
+    "/list",
+    response_model=list[UserListResponse],
+    summary="Get users list",
+    response_description="Users list",
+)
+async def get_users_list(role: UserRole | None = None, user: User = Depends(allowed_for_admin)):
+    return await UserService.get_users_list(role)
 
 
 @router.delete(

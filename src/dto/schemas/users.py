@@ -1,6 +1,6 @@
 """User schemas."""
 
-from pydantic import BaseModel, Field, EmailStr, field_validator
+from pydantic import BaseModel, Field, EmailStr, field_validator, UUID4
 
 from utils.enums import UserRole
 
@@ -35,3 +35,7 @@ class UserAuth(BaseModel):
     login_or_email: str = Field(min_length=3, max_length=50, examples=["john_doe@mail.net"])
     pwd: str = Field(min_length=5, max_length=50)
     user_agent: str
+
+
+class UserListResponse(UserBase):
+    id: UUID4

@@ -81,6 +81,12 @@ class UserService:
 
         return dict(access_token=access_token, refresh_token=refresh_token)
 
+
+    @staticmethod
+    async def get_users_list(role: UserRole | None = None) -> list[User]:
+        async with AsyncSession() as session:
+            return await UserRepository.select_users_by_role(session, role)
+
     @classmethod
     async def delete(cls, user_id: str):
         async with AsyncSession() as session:
