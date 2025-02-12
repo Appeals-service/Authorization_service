@@ -42,6 +42,12 @@ class UserRepository:
         result = await session.execute(query)
         return result.scalars().all()
 
+    @classmethod
+    async def select_user_email_by_id(cls, session: AsyncSession, user_id: str):
+        query = select(User.email).where(User.id == user_id)
+        result = await session.execute(query)
+        return result.scalar()
+
     @staticmethod
     async def delete_refresh_token_by_user_data(session: AsyncSession, user_id: str, user_agent: str) -> None:
         query = delete(Token).where(and_(Token.subject == user_id, Token.user_agent == user_agent))

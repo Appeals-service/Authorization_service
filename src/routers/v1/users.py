@@ -76,3 +76,13 @@ async def get_users_list(role: UserRole | None = None, user: User = Depends(allo
 )
 async def delete(user_id: str = Body(), user: User = Depends(allowed_for_admin)):
     return await UserService.delete(user_id)
+
+
+@router.get(
+    "/{user_id}/email",
+    response_model=str,
+    summary="Get user email by user id",
+    response_description="User email",
+)
+async def get_user_email(user_id: str):
+    return await UserService.get_user_email(user_id)

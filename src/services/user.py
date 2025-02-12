@@ -87,6 +87,11 @@ class UserService:
         async with AsyncSession() as session:
             return await UserRepository.select_users_by_role(session, role)
 
+    @staticmethod
+    async def get_user_email(user_id: str) -> str:
+        async with AsyncSession() as session:
+            return await UserRepository.select_user_email_by_id(session, user_id)
+
     @classmethod
     async def delete(cls, user_id: str):
         async with AsyncSession() as session:
