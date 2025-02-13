@@ -70,11 +70,11 @@ async def get_users_list(role: UserRole | None = None, user: User = Depends(allo
 
 
 @router.delete(
-    "/delete",
+    "/{user_id}",
     status_code=status.HTTP_204_NO_CONTENT,
     summary="Delete user",
 )
-async def delete(user_id: str = Body(), user: User = Depends(allowed_for_admin)):
+async def delete(user_id: str, user: User = Depends(allowed_for_admin)):
     return await UserService.delete(user_id)
 
 
