@@ -3,9 +3,9 @@ from uuid import uuid4
 from sqlalchemy import select, delete, and_
 from sqlalchemy.engine.row import Row
 
-from db.connector import AsyncSession
-from db.tables import User, Token
-from utils.enums import UserRole
+from src.db.connector import AsyncSession
+from src.db.tables import User, Token
+from src.utils.enums import UserRole
 
 
 class UserRepository:

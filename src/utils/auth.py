@@ -5,11 +5,11 @@ import jwt
 from passlib.context import CryptContext
 from fastapi import Request, HTTPException, status, Depends
 
-from common.settings import settings
-from db.connector import AsyncSession
-from db.tables import User
-from repositories.user import UserRepository
-from utils.enums import TokenType
+from src.common.settings import settings
+from src.db.connector import AsyncSession
+from src.db.tables import User
+from src.repositories.user import UserRepository
+from src.utils.enums import TokenType
 
 pwd_context = CryptContext(schemes=["bcrypt"])
 

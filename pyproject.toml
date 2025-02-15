@@ -20,8 +20,20 @@ passlib = "^1.7.4"
 asyncpg = "^0.30.0"
 psycopg2-binary = "^2.9.10"
 bcrypt = "^4.2.1"
+pytest = "^8.3.4"
+httpx = "^0.28.1"
+pytest-asyncio = "^0.25.3"
 
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+    'ignore:function ham\(\) is deprecated:DeprecationWarning',
+]

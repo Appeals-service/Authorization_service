@@ -2,9 +2,9 @@
 
 from fastapi import Depends, HTTPException, status
 
-from db.tables import User
-from utils.auth import get_current_user
-from utils.enums import UserRole
+from src.db.tables import User
+from src.utils.auth import get_current_user
+from src.utils.enums import UserRole
 
 
 class RoleChecker:

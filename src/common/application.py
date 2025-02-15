@@ -3,11 +3,11 @@ import logging.config
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
 
-from common import logger, settings
-from common.errors import ApplicationError
-from common.exception_handlers import error_handler, request_validation_error_handler
-from middleware.cors import get_cors_middleware
-from routers.base import router
+from src.common import logger, settings
+from src.common.errors import ApplicationError
+from src.common.exception_handlers import error_handler, request_validation_error_handler
+from src.middleware.cors import get_cors_middleware
+from src.routers.base import router
 
 
 def setup_exception_handlers(app: FastAPI) -> None:

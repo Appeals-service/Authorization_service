@@ -2,7 +2,7 @@
 
 from pydantic import BaseModel, Field, EmailStr, field_validator, UUID4
 
-from utils.enums import UserRole
+from src.utils.enums import UserRole
 
 
 class UserBase(BaseModel):

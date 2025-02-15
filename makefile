@@ -1,5 +1,3 @@
-# run_base:
-# 	python otus_dj_pr/manage.py runserver 0.0.0.0:8000 --settings=otus_dj_pr.settings.base
 
 create_revision:
 	alembic -c src/alembic.ini revision --autogenerate
@@ -10,12 +8,11 @@ migrate:
 downgrade:
 	alembic -c src/alembic.ini downgrade -1
 
+run_tests:
+	pytest .
 
-# run_polls_tests:
-# 	python otus_dj_pr/manage.py test polls --settings=otus_dj_pr.settings.base
-
-# create_su:
-# 	python otus_dj_pr/manage.py createsuperuser --no-input --settings=otus_dj_pr.settings.base
+run_tests_detail:
+	pytest tests -s -vvv --setup-show tests
 
 lint:
 	ruff check
@@ -35,3 +32,12 @@ lint-isort-fix:
 lint-base:
 	ruff check --fix
 	ruff check --select I --fix
+
+check-hints:
+	mypy .
+
+dc-up:
+	docker compose up -d --build
+
+dc-down:
+	docker compose down -v
