@@ -29,6 +29,7 @@ cover/
 
 # Environments
 .env
+.env_db
 .venv
 env/
 venv/
