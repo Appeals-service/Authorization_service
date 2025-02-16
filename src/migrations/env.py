@@ -1,10 +1,10 @@
 import sqlalchemy as sa
 from alembic import context
 
-from src.common.settings import settings
-from src.db.connector import DatabaseConnector
-from src.db.declarative import EXCLUDE_TABLES
-from src.db.tables.base import BaseModel
+from common.settings import settings
+from db.connector import DatabaseConnector
+from db.declarative import EXCLUDE_TABLES
+from db.tables.base import BaseModel
 
 config = context.config
 

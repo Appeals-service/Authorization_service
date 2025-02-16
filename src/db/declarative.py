@@ -1,7 +1,7 @@
 from sqlalchemy import MetaData
 from sqlalchemy.orm import declarative_base
 
-from src.common.settings import settings
+from common.settings import settings
 
 CONVENTION = {
     "ix": "IX_%(column_0_label)s",

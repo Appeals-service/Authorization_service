@@ -10,7 +10,7 @@ from typing import Sequence, Union
 from alembic import op
 import sqlalchemy as sa
 
-from src.common.settings import settings
+from common.settings import settings
 
 
 # revision identifiers, used by Alembic.

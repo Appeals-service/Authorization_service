@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status, Body
 
-from src.db.tables import User
-from src.dto.schemas.users import UserCreate, UserAuth, UserBase, Tokens, UserListResponse
-from src.services.user import UserService
-from src.utils.enums import UserRole
-from src.utils.role_checker import allowed_for_all, allowed_for_admin
+from db.tables import User
+from dto.schemas.users import UserCreate, UserAuth, UserBase, Tokens, UserListResponse
+from services.user import UserService
+from utils.enums import UserRole
+from utils.role_checker import allowed_for_all, allowed_for_admin
 
 router = APIRouter(prefix="/users", tags=["Users"])
 

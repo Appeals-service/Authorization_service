@@ -1,3 +1,2 @@
-cd src
-alembic upgrade head
-python main.py
+alembic -c src/alembic.ini upgrade head
+python src/main.py

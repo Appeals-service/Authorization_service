@@ -37,3 +37,5 @@ filterwarnings = [
     "ignore::DeprecationWarning",
     'ignore:function ham\(\) is deprecated:DeprecationWarning',
 ]
+pythonpath = ['src/']
+testpaths = ['/tests']

@@ -1,6 +1,6 @@
 import uvicorn
 
-from src.common import application, settings
+from common import application, settings
 
 app = application.init_app()
 

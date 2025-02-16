@@ -7,13 +7,13 @@ from fastapi import status, HTTPException
 from sqlalchemy.exc import IntegrityError
 from user_agents import parse
 
-from src.common.settings import settings
-from src.db.connector import AsyncSession
-from src.db.tables import User
-from src.dto.schemas.users import UserCreate, UserAuth
-from src.repositories.user import UserRepository
-from src.utils.auth import get_hashed_pwd, create_tokens, verify_pwd, check_token_type, get_refresh_token_payload
-from src.utils.enums import UserRole, TokenType
+from common.settings import settings
+from db.connector import AsyncSession
+from db.tables import User
+from dto.schemas.users import UserCreate, UserAuth
+from repositories.user import UserRepository
+from utils.auth import get_hashed_pwd, create_tokens, verify_pwd, check_token_type, get_refresh_token_payload
+from utils.enums import UserRole, TokenType
 
 
 class UserService:

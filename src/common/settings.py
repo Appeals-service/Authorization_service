@@ -10,12 +10,6 @@ ROOT_DIR = Path(__file__).parent.parent.parent
 class Settings(BaseSettings):
     SERVICE_NAME: str = "AS Authorization service"
 
-    DEBUG: bool = True
-    RELOAD: bool = True
-    SERVER_HOST: str = "0.0.0.0"
-    SERVER_PORT: int = 8001
-    CORS_ORIGINS: str = "*"
-
     DB_USER: str = "POSTGRES"
     DB_PASSWORD: str = "POSTGRES"
     DB_HOST: str = "localhost"
@@ -25,13 +19,19 @@ class Settings(BaseSettings):
 
     TEST_DB_SCHEMA_PREFIX: str = "test_"
 
+    DEBUG: bool = True
+    RELOAD: bool = True
+    SERVER_HOST: str = "0.0.0.0"
+    SERVER_PORT: int = 8001
+    CORS_ORIGINS: str = "*"
+
     ECHO: bool = False
 
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 120
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 1440
 
-    SECRET_KEY: str = "feisom_ob_teibl_rt54uyjhn67rtgfvbrtr_nyuumn"
-    ALGORITHM: str = "HS256"
+    SECRET_KEY: str
+    ALGORITHM: str
 
     LOGGING_LEVEL: str = "DEBUG"
     LOGGING_JSON: bool = True

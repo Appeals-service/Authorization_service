@@ -1,4 +1,4 @@
-from src.common.settings import settings
+from common.settings import settings
 
 
 def make_logger_conf(*confs, log_level=settings.LOGGING_LEVEL, json_log=settings.LOGGING_JSON):

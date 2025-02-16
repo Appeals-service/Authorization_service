@@ -2,9 +2,9 @@
 
 from sqlalchemy import Column, String, UUID, ForeignKey, Enum, Text
 
-from src.common.settings import settings
-from src.db.tables.base import BaseModel, CreatedAtMixin, IdMixin, UpdatedAtMixin
-from src.utils.enums import UserRole
+from common.settings import settings
+from db.tables.base import BaseModel, CreatedAtMixin, IdMixin, UpdatedAtMixin
+from utils.enums import UserRole
 
 
 class User(BaseModel, IdMixin, CreatedAtMixin, UpdatedAtMixin):

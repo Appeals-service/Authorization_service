@@ -3,8 +3,8 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
-from src.common.errors import ApplicationError, ObjectNotFoundError, RequestDataError
-from src.dto.schemas.exception import HandledExceptionSchema, HandledValidationExceptionSchema
+from common.errors import ApplicationError, ObjectNotFoundError, RequestDataError
+from dto.schemas.exception import HandledExceptionSchema, HandledValidationExceptionSchema
 
 
 def _generate_exception_handler(schema: HandledExceptionSchema | HandledValidationExceptionSchema):
