@@ -53,3 +53,7 @@ def user_data() -> dict:
 @pytest.fixture
 def executor_data() -> dict:
     return create_access_token(UserRole.executor)
+
+@pytest.fixture
+def admin_data() -> dict:
+    return create_access_token(UserRole.admin)
