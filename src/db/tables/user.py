@@ -1,6 +1,6 @@
 """User tables."""
 
-from sqlalchemy import Column, String, UUID, ForeignKey, Enum, Text
+from sqlalchemy import UUID, Column, Enum, ForeignKey, String, Text
 
 from common.settings import settings
 from db.tables.base import BaseModel, CreatedAtMixin, IdMixin, UpdatedAtMixin

@@ -1,10 +1,11 @@
-from fastapi.testclient import TestClient
-from asyncio import new_event_loop, get_running_loop
+from asyncio import get_running_loop, new_event_loop
+
 import pytest
 from alembic import command
 from alembic.config import Config
-
+from fastapi.testclient import TestClient
 from sqlalchemy import text
+
 from src.common.settings import ROOT_DIR, settings
 from src.db.connector import AsyncSession
 from src.main import app

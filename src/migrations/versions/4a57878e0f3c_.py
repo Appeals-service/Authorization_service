@@ -1,17 +1,16 @@
 """empty message
 
 Revision ID: 4a57878e0f3c
-Revises: 
+Revises:
 Create Date: 2025-02-01 20:55:01.698536
 
 """
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
+from alembic import op
 
 from common.settings import settings
-
 
 # revision identifiers, used by Alembic.
 revision: str = '4a57878e0f3c'

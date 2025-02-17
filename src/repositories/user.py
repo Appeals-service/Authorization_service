@@ -1,10 +1,10 @@
 from uuid import uuid4
 
-from sqlalchemy import select, delete, and_
+from sqlalchemy import and_, delete, select
 from sqlalchemy.engine.row import Row
 
 from db.connector import AsyncSession
-from db.tables import User, Token
+from db.tables import Token, User
 from utils.enums import UserRole
 
 

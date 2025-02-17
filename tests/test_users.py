@@ -1,13 +1,13 @@
 from uuid import uuid4
 
 import pytest
-from sqlalchemy import select, insert
 from fastapi import status
+from sqlalchemy import insert, select
 
 from src.db.connector import AsyncSession
-from src.db.tables import User, Token
-from src.utils.enums import UserRole
+from src.db.tables import Token, User
 from src.utils.auth import get_hashed_pwd
+from src.utils.enums import UserRole
 from tests.utils.tokens import create_refresh_token
 
 

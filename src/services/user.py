@@ -1,19 +1,19 @@
 """User service."""
 from uuid import uuid4
 
+from fastapi import HTTPException, status
 from pydantic import validate_email
 from pydantic_core import PydanticCustomError
-from fastapi import status, HTTPException
 from sqlalchemy.exc import IntegrityError
 from user_agents import parse
 
 from common.settings import settings
 from db.connector import AsyncSession
 from db.tables import User
-from dto.schemas.users import UserCreate, UserAuth
+from dto.schemas.users import UserAuth, UserCreate
 from repositories.user import UserRepository
-from utils.auth import get_hashed_pwd, create_tokens, verify_pwd, check_token_type, get_refresh_token_payload
-from utils.enums import UserRole, TokenType
+from utils.auth import check_token_type, create_tokens, get_hashed_pwd, get_refresh_token_payload, verify_pwd
+from utils.enums import TokenType, UserRole
 
 
 class UserService:

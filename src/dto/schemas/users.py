@@ -1,6 +1,6 @@
 """User schemas."""
 
-from pydantic import BaseModel, Field, EmailStr, field_validator, UUID4
+from pydantic import UUID4, BaseModel, EmailStr, Field, field_validator
 
 from utils.enums import UserRole
 

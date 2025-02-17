@@ -1,9 +1,9 @@
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta, timezone
 from uuid import uuid4
 
 import jwt
+from fastapi import Depends, HTTPException, Request, status
 from passlib.context import CryptContext
-from fastapi import Request, HTTPException, status, Depends
 
 from common.settings import settings
 from db.connector import AsyncSession
