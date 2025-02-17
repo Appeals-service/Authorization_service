@@ -30,8 +30,8 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 120
     REFRESH_TOKEN_EXPIRE_MINUTES: int = 1440
 
-    SECRET_KEY: str
-    ALGORITHM: str
+    SECRET_KEY: str = ""
+    ALGORITHM: str = ""
 
     LOGGING_LEVEL: str = "DEBUG"
     LOGGING_JSON: bool = True
@@ -58,3 +58,10 @@ settings = Settings()
 if "pytest" in sys.modules:  # pragma: no cover
     settings.DB_SCHEMA = settings.TEST_DB_SCHEMA_PREFIX + uuid4().hex + "_" + settings.DB_SCHEMA
     settings.SECRET_KEY = "test_secret_key_lksdf3"
+    settings.ALGORITHM = "HS256"
+
+    settings.DB_USER = "postgres"
+    settings.DB_PASSWORD = "postgres"
+    settings.DB_HOST = "localhost"
+    settings.DB_PORT = 5432
+    settings.DB_NAME = "postgres"
